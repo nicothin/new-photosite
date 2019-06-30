@@ -55,6 +55,7 @@ let doNotEditMsg = '\n ВНИМАНИЕ! Этот файл генерирует�
 let pugOption = {
   data: { repoUrl: 'https://github.com/nicothin/NTH-start-project', },
   filters: { 'show-code': filterShowCode, },
+  pretty: true,
 };
 
 // Список и настройки плагинов postCSS
@@ -219,12 +220,10 @@ function writeSassImportsFile(cb) {
   });
   let diff = getArraysDiff(newScssImportsList, nth.scssImportsList);
   if (diff.length) {
-    let msg = `\n/*!*${doNotEditMsg.replace(/\n /gm,'\n * ').replace(/\n\n$/,'\n */\n\n')}`;
-    let styleImports = msg;
+    let styleImports = '';
     newScssImportsList.forEach(function(src) {
       styleImports += `@import "${src}";\n`;
     });
-    styleImports += msg;
     fs.writeFileSync(`${dir.src}scss/style.scss`, styleImports);
     console.log('---------- Write new style.scss');
     nth.scssImportsList = newScssImportsList;
@@ -277,12 +276,10 @@ function writeJsRequiresFile(cb) {
   nth.config.addJsAfter.forEach(function(src) {
     jsRequiresList.push(src);
   });
-  let msg = `\n/*!*${doNotEditMsg.replace(/\n /gm,'\n * ').replace(/\n\n$/,'\n */\n\n')}`;
-  let jsRequires = msg + '/* global require */\n\n';
+  let jsRequires = '/* global require */\n\n';
   jsRequiresList.forEach(function(src) {
     jsRequires += `require('${src}');\n`;
   });
-  jsRequires += msg;
   fs.writeFileSync(`${dir.src}js/entry.js`, jsRequires);
   console.log('---------- Write new entry.js');
   cb();
