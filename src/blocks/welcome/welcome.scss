@@ -7,13 +7,10 @@
   $block-name:                &; // #{$block-name}__element
 
   position: relative;
-  display: flex;
-  flex-direction: column;
-  // justify-content: flex-end;
-  // align-items: flex-start;
   padding: 2rem 1.5rem 1rem;
 
   &__header {
+    position: absolute;
     z-index: 1;
   }
 
