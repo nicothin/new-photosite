@@ -27,7 +27,7 @@ let config = {
     './script.js',
   ],
   'addAssets': {
-    'src/fonts/demo-empty-open-sans.woff2': 'fonts/',
+    // 'src/fonts/demo-empty-open-sans.woff2': 'fonts/',
     'src/img/demo-*.{png,svg,jpg,jpeg}': 'img/',
     // 'src/favicon/*.{png,ico,svg,xml,webmanifest}': 'img/favicon',
     // 'node_modules/somePackage/images/*.{png,svg,jpg,jpeg}': 'img/',

@@ -55,7 +55,6 @@ let doNotEditMsg = '\n ВНИМАНИЕ! Этот файл генерирует�
 let pugOption = {
   data: { repoUrl: 'https://github.com/nicothin/NTH-start-project', },
   filters: { 'show-code': filterShowCode, },
-  pretty: true,
 };
 
 // Список и настройки плагинов postCSS

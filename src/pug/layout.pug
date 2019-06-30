@@ -3,7 +3,7 @@
 include mixins.pug
 
 doctype html
-html(class='page  no-js', lang='ru')
+html(class='page', lang='ru')
 
   head
     meta(charset='utf-8')
@@ -30,28 +30,12 @@ html(class='page  no-js', lang='ru')
 
     block head
       link(rel='stylesheet', href='css/style.css')
-      script
-        include ../js/head-script.js
 
   body
     noscript У вас отключен JavaScript. Это пугает.
 
     .page__inner
-      .page__content
-
-        +page-header()
-          +logo('/')
-            p Logo
-          block nav
-
-        block content
-          p содержимое
-
-      .page__footer-wrapper
-        +page-footer()
-          block footer
-            p «Подвал»
-            p Контактный телефон: #[a(href='tel:+70000000000') +7 000 000 00 00]
+      block content
 
     block page-bottom
       script(src='js/bundle.js')

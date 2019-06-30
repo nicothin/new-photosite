@@ -1,0 +1,32 @@
+// В этом файле должны быть стили для БЭМ-блока photogrid, его элементов,
+// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий...
+// Очередность: http://nicothin.github.io/idiomatic-pre-CSS/#priority
+
+.photogrid {
+
+  $block-name:                &; // #{$block-name}__element
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: calc(50vw - 0.5rem);
+  grid-gap: 1rem;
+
+  @media (min-width: $screen-md) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: calc(33.333334vw - 1rem);
+  }
+
+  &__main {
+
+    @media (orientation: portrait) {
+      grid-column: 1 / span 2;
+      grid-row: 1 / span 2;
+    }
+
+    // @media (min-width: $screen-md) {
+    // grid-row: 1 / span 3;
+    // }
+  }
+
+  &__item {}
+}

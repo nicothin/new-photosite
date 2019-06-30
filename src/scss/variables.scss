@@ -26,12 +26,12 @@ $color-gh:                    #24292e;
 
 // Семантические цвета
 
-$text-color:                  $gray-darkest;
+$text-color:                  $gray-lightest;
 $text-color-muted:            $gray;
-$body-bg:                     $white;
+$body-bg:                     $black;
 
-$link-color:                  $color-main;
-$link-color--hover:           darken($color-main, 15%);
+$link-color:                  $gray-lightest;
+$link-color--hover:           darken($gray-lightest, 15%);
 
 $border-color:                $gray-lighten;
 
@@ -39,14 +39,14 @@ $border-color:                $gray-lighten;
 
 // Базовая типографика
 
-$font-size:                   16px;
+$font-size:                   1.6rem;
 
-$font-size-h1:                40px;
-$font-size-h2:                32px;
-$font-size-h3:                24px;
-$font-size-h4:                18px;
-$font-size-h5:                16px;
-$font-size-h6:                16px;
+$font-size-h1:                4rem;
+$font-size-h2:                3.2rem;
+$font-size-h3:                2.4rem;
+$font-size-h4:                1.8rem;
+$font-size-h5:                1.6rem;
+$font-size-h6:                1.6rem;
 
 $font-size-sm:                0.75em; // 12px от 16px
 
@@ -54,7 +54,7 @@ $line-height:                 1.5;
 
 $typo-margin-vertical:        1em;
 
-$font-family:                 -apple-system, BlinkMacSystemFont, 'Roboto', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-family:                 -apple-system, BlinkMacSystemFont, 'Roboto', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
 $font-family--monospace:     SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 // Georgia, Times New Roman, Times, serif
 
