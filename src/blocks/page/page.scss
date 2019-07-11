@@ -14,7 +14,9 @@
     font-size: 12px;
   }
 
-  &__inner {}
+  &__inner {
+    min-height: 100%;
+  }
 }
 
 *,

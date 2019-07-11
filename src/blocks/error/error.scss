@@ -1,0 +1,11 @@
+// В этом файле должны быть стили для БЭМ-блока error, его элементов,
+// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий...
+// Очередность: http://nicothin.github.io/idiomatic-pre-CSS/#priority
+
+.error {
+
+  $block-name:                &; // #{$block-name}__element
+
+  padding: 1rem;
+  text-align: center;
+}
