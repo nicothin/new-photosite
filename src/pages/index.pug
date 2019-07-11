@@ -10,29 +10,13 @@ block meta
 block content
   main.photogrid(itemscope, itemtype='http://schema.org/ImageGallery')
     header.photogrid__main.welcome
-      .welcome__header
+      a.welcome__header(href='#about')
         h1.welcome__name
           span.welcome__name-inner Николай Громов
         p.welcome__descr
-          span.welcome__descr-inner Фотоблог
+          span.welcome__descr-inner Фотография
       a(href='')
-        img.welcome__last-photo(src='img/demo-3.jpg', alt='')
-
-    figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
-      a.photo__img-wrap(href='img/demo-1.jpg', itemprop='contentUrl', data-size=',1200x800')
-        //- 380
-        img.photo__img(src='http://ngromov.ru/new/image.php?image=/new/ph/DSC_5109.jpg&width=380&cropratio=1:1', itemprop='thumbnail', alt='Image 1 description')
-      figcaption.photo__descr(itemprop='caption description') Image 1 caption
-
-    figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
-      a.photo__img-wrap(href='img/demo-2.jpg', itemprop='contentUrl', data-size='2200x800')
-        img.photo__img(src='img/demo-2.jpg', itemprop='thumbnail', alt='Image 2 description')
-      figcaption.photo__descr(itemprop='caption description') Image 2 caption
-
-    figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
-      a.photo__img-wrap(href='img/demo-3.jpg', itemprop='contentUrl', data-size='3200x800')
-        img.photo__img(src='img/demo-3.jpg', itemprop='thumbnail', alt='Image 3 description')
-      figcaption.photo__descr(itemprop='caption description') Image 3 caption
+        img.welcome__last-photo(src='img/demo-3.jpg', alt='Image 1 description')
 
     figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
       a.photo__img-wrap(href='img/demo-1.jpg', itemprop='contentUrl', data-size='1200x800')
@@ -64,8 +48,32 @@ block content
         img.photo__img(src='img/demo-3.jpg', itemprop='thumbnail', alt='Image 3 description')
       figcaption.photo__descr(itemprop='caption description') Image 3 caption
 
-//- block footer
-//-   p footer
+    figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
+      a.photo__img-wrap(href='img/demo-1.jpg', itemprop='contentUrl', data-size='1200x800')
+        img.photo__img(src='http://ngromov.ru/new/image.php?image=/new/ph/DSC_5109.jpg&width=380&cropratio=1:1', itemprop='thumbnail', alt='Image 1 description')
+      figcaption.photo__descr(itemprop='caption description') Image 1 caption
+
+    figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
+      a.photo__img-wrap(href='img/demo-2.jpg', itemprop='contentUrl', data-size='2200x800')
+        img.photo__img(src='img/demo-2.jpg', itemprop='thumbnail', alt='Image 2 description')
+      figcaption.photo__descr(itemprop='caption description') Image 2 caption
+
+    figure.photogrid__item.photo(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
+      a.photo__img-wrap(href='img/demo-3.jpg', itemprop='contentUrl', data-size='3200x800')
+        img.photo__img(src='img/demo-3.jpg', itemprop='thumbnail', alt='Image 3 description')
+      figcaption.photo__descr(itemprop='caption description') Image 3 caption
+
+  aside.about#about
+    h2.about__title Кто такой Николай Громов
+    .about__text
+      p Я веб-разработчик. С 2000 по 2016 год я активно занимался фотографией (даже была своя студия). Сейчас снимаю редко и исключительно по собственному желанию. Этот свой сайт с фото переделал в середине 2019, удалив почти все кадры.
+      p #[a(href='https://vk.com/n.gromov') ВКонтакте], #[a(href='tel:+79112603759') +7 911 260-37-59], #[a(href='mailto:nicothin@gmail.com') nicothin@gmail.com].
+
+  section.photohelp#photohelp
+    h2 Памятка начинающему фотографу
+    p Это PDF — две стороны листа A4, разбитые на 4 блока. Распечатать на одном листе, сложить — получится памятка, легко влезающая в карман или небольшую фотосумку.
+    p
+      a(href='http://ngromov.ru/uploads/pamyatka_fotografu_1.3_ngromov_ru_.pdf') Скачать
 
 //- block append page-bottom
 //-   script(src='js/some.js')
