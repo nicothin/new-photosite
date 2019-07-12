@@ -4,3 +4,4 @@ src/scss/style.scss
 src/blocks/sprite-png/sprite-png.scss
 src/blocks/page/page.scss
 src/blocks/blocks-library/blocks-library.scss
+src/blocks/photoswipe/photoswipe.scss

@@ -8,6 +8,7 @@ let config = {
     'no-js',
   ],
   'alwaysAddBlocks': [
+    'photoswipe',
     // 'sprite-svg',
     // 'sprite-png',
     // 'object-fit-polyfill',

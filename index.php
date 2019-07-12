@@ -69,33 +69,28 @@ echo '
 <body>
 <noscript>У вас отключен JavaScript. Это пугает.</noscript>
 <div class="page__inner">
-<main class="photogrid" itemscope itemtype="http://schema.org/ImageGallery">
+<main>
 
-<header class="photogrid__main welcome">
+<header class="welcome">
   <a class="welcome__header" href="#about">
     <h1 class="welcome__name"><span class="welcome__name-inner">Николай Громов</span></h1>
     <p class="welcome__descr"><span class="welcome__descr-inner">Фотохудожник</span></p>
-  </a>
-  <figure class="welcome__photo-wrap" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-  <a href="'.$list[0]['file'].'" itemprop="contentUrl" data-size="'.$list[0]['w'].'x'.$list[0]['h'].'">
-    <img class="welcome__last-photo" src="'.$list[0]['file'].'" itemprop="thumbnail" alt="'.$list[0]['name'].'">
-  </a>
-  <figcaption class="welcome__photo-descr" itemprop="caption description">'.$list[0]['name'];
-if($list[0]['descr']) echo '<br>'.$list[0]['descr'];
-  echo '</figcaption>
-  </figure>
-</header>';
-
+  </a></header>
+<div class="photogrid" id="photogallery" itemscope itemtype="http://schema.org/ImageGallery">';
 
 foreach ($list as $key => $photo) {
-  if($key == 0) continue;
-  if($key < 16) {
+  $figureClass = 'photogrid__item photo';
+  if($key == 0) {
+    $figureClass = 'photogrid__main photo';
+    $sources = 'src="'.$photo['file'].'"';
+  }
+  elseif($key < 16) {
     $sources = 'src="/image.php?image=/'.$photo['file'].'&amp;width=20&amp;height=20&amp;cropratio=1:1" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
   }
   else {
     $sources = 'src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
   }
-  echo '<figure class="photogrid__item photo" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"><a class="photo__img-wrap" href="'.$photo['file'].'" itemprop="contentUrl" data-size="'.$photo['w'].'x'.$photo['h'].'"><img class="photo__img" '.$sources.' itemprop="thumbnail" alt="'.$photo['name'].'"></a>';
+  echo '<figure class="'.$figureClass.'" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"><a class="photo__img-wrap js-photo" href="'.$photo['file'].'" itemprop="contentUrl" data-size="'.$photo['w'].'x'.$photo['h'].'"><img class="photo__img" '.$sources.' itemprop="thumbnail" alt="'.$photo['name'].'"></a>';
   echo '<figcaption class="photo__descr" itemprop="caption description">'.$photo['name'];
   if($photo['descr']) echo '<br>'.$photo['descr'];
   echo '</figcaption></figure>';
@@ -103,7 +98,9 @@ foreach ($list as $key => $photo) {
 }
 
 
-echo '</main>
+echo '
+</div>
+</main>
     <aside class="about" id="about">
       <h2 class="about__title">Кто такой Николай Громов</h2>
       <div class="about__text">
@@ -116,6 +113,34 @@ echo '</main>
       <p>Это PDF — две стороны листа A4, разбитые на 4 блока. Распечатать на одном листе, сложить — получится памятка, легко влезающая в карман или небольшую фотосумку.</p>
       <p><a href="http://ngromov.ru/uploads/pamyatka_fotografu_1.3_ngromov_ru_.pdf">Скачать</a></p>
     </section>
+  </div>
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button><button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button><button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button><button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="js/bundle.js"></script>
 
