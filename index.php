@@ -90,10 +90,10 @@ if($list[0]['descr']) echo '<br>'.$list[0]['descr'];
 foreach ($list as $key => $photo) {
   if($key == 0) continue;
   if($key < 16) {
-    $sources = 'src="/image.php?image=/'.$photo['file'].'&amp;width=20&amp;height=20&amp;cropratio=1:1"';
+    $sources = 'src="/image.php?image=/'.$photo['file'].'&amp;width=20&amp;height=20&amp;cropratio=1:1" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
   }
   else {
-    $sources = 'src="" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
+    $sources = 'src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
   }
   echo '<figure class="photogrid__item photo" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"><a class="photo__img-wrap" href="'.$photo['file'].'" itemprop="contentUrl" data-size="'.$photo['w'].'x'.$photo['h'].'"><img class="photo__img" '.$sources.' itemprop="thumbnail" alt="'.$photo['name'].'"></a>';
   echo '<figcaption class="photo__descr" itemprop="caption description">'.$photo['name'];
