@@ -70,16 +70,13 @@
     "through2": "^3.0.0",
     "vinyl-buffer": "^1.0.1",
     "webpack": "^4.27.1",
+    "gulp-pretty-html": "^2.0.10",
+    "gulp-replace": "^1.0.0",
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "autosize": "^4.0.2",
-    "baron": "^3.0.3",
-    "choices.js": "^7.0.0",
-    "closest": "0.0.1",
-    "jquery": "^3.1.1",
     "object-fit-images": "^3.2.3",
-    "svg4everybody": "^2.1.8"
+    "vanilla-lazyload": "^12.0.0"
   },
   "husky": {
     "hooks": {

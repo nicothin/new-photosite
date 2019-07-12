@@ -6,13 +6,77 @@
 
   $block-name:                &; // #{$block-name}__element
 
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $gray-darkest;
+  }
+
+  &:after {
+    content: 'JS';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    line-height: 40px;
+    text-align: center;
+    color: $gray;
+    font-size: 20px;
+    font-weight: 700;
+    margin: auto;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    border-color: transparent;
+    border-left-color: $gray;
+    border-right-color: $gray;
+    animation: loader 1.4s linear infinite;
+  }
+
+  .no-touch &:hover #{$block-name}__descr {
+    opacity: 1;
+  }
+
   &__descr {
     position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.3rem 0.5rem;
+    max-height: calc(2.4em + 0.4rem);
+    line-height: 1.2;
+    background: rgba(0, 0, 0, 0.6);
     overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s;
+    display: -webkit-box; // stylelint-disable-line
+    -webkit-box-orient: vertical; // stylelint-disable-line
+    -webkit-line-clamp: 2; // stylelint-disable-line
+
+    @media (min-width: $screen-md) {
+      font-size: 1.2rem;
+    }
+
+    &:empty {
+      display: none;
+    }
+
+    .no-touch & {
+      opacity: 0;
+    }
   }
 
   &__img {
@@ -20,5 +84,25 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  &--loaded {
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+
+
+@keyframes loader {
+
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

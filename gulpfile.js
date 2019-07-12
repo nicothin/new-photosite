@@ -39,6 +39,8 @@ const merge = require('merge-stream');
 const imagemin = require('gulp-imagemin');
 const ghpages = require('gh-pages');
 const path = require('path');
+const prettyHtml = require('gulp-pretty-html');
+const replace = require('gulp-replace');
 
 // Глобальные настройки этого запуска
 const buildLibrary = process.env.BUILD_LIBRARY == 'yes' ? true : false;
@@ -55,6 +57,14 @@ let doNotEditMsg = '\n ВНИМАНИЕ! Этот файл генерирует�
 let pugOption = {
   data: { repoUrl: 'https://github.com/nicothin/NTH-start-project', },
   filters: { 'show-code': filterShowCode, },
+};
+
+// Настройки бьютификатора
+let prettyOption = {
+  indent_size: 2,
+  indent_char: ' ',
+  unformatted: ['code', 'em', 'strong', 'span', 'i', 'b', 'br', 'script'],
+  content_unformatted: [],
 };
 
 // Список и настройки плагинов postCSS
@@ -95,6 +105,10 @@ function compilePug() {
     }))
     .pipe(debug({title: 'Compiles '}))
     .pipe(pug(pugOption))
+    .pipe(prettyHtml(prettyOption))
+    .pipe(replace(/^(\s*)(<button.+?>)(.*)(<\/button>)/gm, '$1$2\n$1  $3\n$1$4'))
+    .pipe(replace(/^( *)(<.+?>)(<script>)([\s\S]*)(<\/script>)/gm, '$1$2\n$1$3\n$4\n$1$5\n'))
+    .pipe(replace(/^( *)(<.+?>)(<script\s+src.+>)(?:[\s\S]*)(<\/script>)/gm, '$1$2\n$1$3$4'))
     .pipe(through2.obj(getClassesToBlocksList))
     .pipe(dest(dir.build));
 }
@@ -115,6 +129,10 @@ function compilePugFast() {
     }))
     .pipe(debug({title: 'Compiles '}))
     .pipe(pug(pugOption))
+    .pipe(prettyHtml(prettyOption))
+    .pipe(replace(/^(\s*)(<button.+?>)(.*)(<\/button>)/gm, '$1$2\n$1  $3\n$1$4'))
+    .pipe(replace(/^( *)(<.+?>)(<script>)([\s\S]*)(<\/script>)/gm, '$1$2\n$1$3\n$4\n$1$5\n'))
+    .pipe(replace(/^( *)(<.+?>)(<script\s+src.+>)(?:[\s\S]*)(<\/script>)/gm, '$1$2\n$1$3$4'))
     .pipe(through2.obj(getClassesToBlocksList))
     .pipe(dest(dir.build));
 }

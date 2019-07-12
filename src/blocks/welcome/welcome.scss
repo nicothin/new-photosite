@@ -9,6 +9,10 @@
   position: relative;
   padding: 2rem 1.5rem 1rem;
 
+  .no-touch &:hover #{$block-name}__photo-descr {
+    opacity: 1;
+  }
+
   &__header {
     position: absolute;
     z-index: 1;
@@ -37,12 +41,47 @@
     padding: 0.4rem 1rem;
   }
 
-  &__last-photo {
+  &__photo-wrap {
     position: absolute;
     top: 0;
     right: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+  }
+
+  &__last-photo {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+  }
+
+  &__photo-descr {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.3rem 0.5rem;
+    max-height: calc(2.4em + 0.4rem);
+    line-height: 1.2;
+    background: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s;
+    display: -webkit-box; // stylelint-disable-line
+    -webkit-box-orient: vertical; // stylelint-disable-line
+    -webkit-line-clamp: 2; // stylelint-disable-line
+
+    @media (min-width: $screen-md) {
+      font-size: 1.2rem;
+    }
+
+    &:empty {
+      display: none;
+    }
+
+    .no-touch & {
+      opacity: 0;
+    }
   }
 }

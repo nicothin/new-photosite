@@ -117,12 +117,11 @@ $height     = $size[1];
 $maxWidth   = (isset($_GET['width'])) ? (int) $_GET['width'] : 0;
 $maxHeight    = (isset($_GET['height'])) ? (int) $_GET['height'] : 0;
 
-if ($maxWidth != 380 or $maxHeight != 380)
-{
-  header('HTTP/1.1 400 Bad Request');
-  echo 'Error: size fail';
-  exit();
-}
+// 380 and 20 only.
+if ($maxWidth >= 380) $maxWidth = 380;
+if ($maxWidth < 380) $maxWidth = 20;
+if ($maxHeight >= 380) $maxHeight = 380;
+if ($maxHeight < 380) $maxHeight = 20;
 
 if (isset($_GET['color']))
   $color    = preg_replace('/[^0-9a-fA-F]/', '', (string) $_GET['color']);

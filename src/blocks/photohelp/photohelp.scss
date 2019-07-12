@@ -6,10 +6,15 @@
 
   $block-name:                &; // #{$block-name}__element
 
-  position: absolute;
-  z-index: -1;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
+  padding-top: 2rem;
+
+  .js & {
+    position: absolute;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
 }
