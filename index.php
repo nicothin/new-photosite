@@ -50,6 +50,9 @@ if (!$list)
   exit();
 }
 
+$siteName = 'Николай Громов. Фотоблог';
+$siteDescr = 'Фотографии: стритфото, жанр, портреты, абстракция, минимализм, ню.';
+
 echo '
 <!DOCTYPE html>
 <html class="page  no-js" lang="ru">
@@ -60,10 +63,16 @@ echo '
 <meta name="theme-color" content="#000">
 <meta name="msapplication-navbutton-color" content="#000">
 <meta name="apple-mobile-web-app-status-bar-style" content="#000">
-<script>function cth(c){document.documentElement.classList.add(c)}\'ontouchstart\' in window?cth(\'touch\'):cth(\'no-touch\');document.documentElement.className = document.documentElement.className.replace(\'no-js\', \'js\');</script>
-<title>Николай Громов. Фотоблог</title>
-<meta name="description" content="Фотографии: стритфото, жанр, портреты, абстракция, минимализм, ню.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:type" content="website">
+<meta property="og:title" content="'.$siteName.'">
+<meta property="og:description" content="'.$siteDescr.'">
+<meta property="og:image" content="//ngromov.ru/'.$list[0]['file'].'">
+<meta property="og:site_name" content="'.$siteName.'">
+<title>'.$siteName.'</title>
+<meta name="description" content="'.$siteDescr.'">
 <link rel="stylesheet" href="css/style.css">
+<script>function cth(c){document.documentElement.classList.add(c)}\'ontouchstart\' in window?cth(\'touch\'):cth(\'no-touch\');document.documentElement.className = document.documentElement.className.replace(\'no-js\', \'js\');</script>
 </head>
 
 <body>
@@ -78,17 +87,16 @@ echo '
   </a></header>
 <div class="photogrid" id="photogallery" itemscope itemtype="http://schema.org/ImageGallery">';
 
+echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
 foreach ($list as $key => $photo) {
-  $figureClass = 'photogrid__item photo';
   if($key == 0) {
     $figureClass = 'photogrid__main photo';
     $sources = 'src="'.$photo['file'].'"';
   }
-  elseif($key < 16) {
-    $sources = 'src="/image.php?image=/'.$photo['file'].'&amp;width=20&amp;height=20&amp;cropratio=1:1" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
-  }
   else {
-    $sources = 'src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
+    $figureClass = 'photogrid__item photo';
+    $sources = 'src="" data-src="/image.php?image=/'.$photo['file'].'&amp;width=380&amp;height=380&amp;cropratio=1:1"';
   }
   echo '<figure class="'.$figureClass.'" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"><a class="photo__img-wrap js-photo" href="'.$photo['file'].'" itemprop="contentUrl" data-size="'.$photo['w'].'x'.$photo['h'].'"><img class="photo__img" '.$sources.' itemprop="thumbnail" alt="'.$photo['name'].'"></a>';
   echo '<figcaption class="photo__descr" itemprop="caption description">'.$photo['name'];
@@ -97,23 +105,21 @@ foreach ($list as $key => $photo) {
   // echo $photo['date'] . '<br>';
 }
 
-
 echo '
 </div>
 </main>
-    <aside class="about" id="about">
-      <h2 class="about__title">Кто такой Николай Громов</h2>
-      <div class="about__text">
-        <p>Я веб-разработчик. С 2000 по 2016 год я активно занимался фотографией (даже была своя студия). Сейчас снимаю редко и исключительно по собственному желанию. Этот свой сайт с фото переделал в середине 2019, удалив почти все кадры.</p>
-        <p><a href="https://vk.com/n.gromov">ВКонтакте</a>, <a href="tel:+79112603759">+7 911 260-37-59</a>, <a href="mailto:nicothin@gmail.com">nicothin@gmail.com</a>.</p>
-      </div>
-    </aside>
-    <section class="photohelp" id="photohelp">
-      <h2>Памятка начинающему фотографу</h2>
-      <p>Это PDF — две стороны листа A4, разбитые на 4 блока. Распечатать на одном листе, сложить — получится памятка, легко влезающая в карман или небольшую фотосумку.</p>
-      <p><a href="http://ngromov.ru/uploads/pamyatka_fotografu_1.3_ngromov_ru_.pdf">Скачать</a></p>
-    </section>
-  </div>
+  <aside class="about" id="about" tabindex="-1">
+    <h2>Кто такой Николай Громов</h2>
+    <div class="about__text">
+      <p>Я веб-разработчик. С 2000 по 2016 год я активно занимался фотографией (даже была своя студия). Сейчас снимаю редко и исключительно по собственному желанию. Этот свой сайт с фото переделал в середине 2019, удалив почти все кадры.</p>
+      <p><a href="https://vk.com/n.gromov">ВКонтакте</a>, <a href="tel:+79112603759">+7 911 260-37-59</a>, <a href="mailto:nicothin@gmail.com">nicothin@gmail.com</a>.</p>
+    </div>
+  </aside>
+  <aside class="photohelp" id="photohelp" tabindex="-1">
+    <h2>Памятка начинающему фотографу</h2>
+    <p>Это PDF — две стороны листа A4, разбитые на 4 блока. Распечатать на одном листе, сложить — получится памятка, легко влезающая в карман или небольшую фотосумку.</p>
+    <p><a href="http://ngromov.ru/uploads/pamyatka_fotografu_1.3_ngromov_ru_.pdf">Скачать</a></p>
+  </aside>
   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">

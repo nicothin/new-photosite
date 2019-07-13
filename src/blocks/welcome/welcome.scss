@@ -6,9 +6,12 @@
 
   $block-name:                &; // #{$block-name}__element
 
-  position: absolute;
+  position: relative;
   z-index: 2;
-  margin: 2rem 0 0 1rem;
+  width: 100%;
+  max-width: 1800px;
+  margin: auto;
+  // margin: 2rem 0 0 1rem;
 
   .no-touch &:hover #{$block-name}__photo-descr {
     opacity: 1;
@@ -20,8 +23,8 @@
 
   &__name {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 2rem;
+    left: 1.8rem;
     margin-bottom: 0;
     font-weight: 400;
     letter-spacing: -0.03em;
@@ -35,8 +38,8 @@
 
   &__descr {
     position: absolute;
-    top: 5rem;
-    left: 0;
+    top: 7rem;
+    left: 1.8rem;
     margin-bottom: 0;
     white-space: nowrap;
   }

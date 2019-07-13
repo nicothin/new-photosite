@@ -397,12 +397,11 @@
 
   &__caption__center {
     text-align: left;
-    max-width: 420px;
+    max-width: 640px;
     margin: 0 auto;
-    font-size: 13px;
+    font-size: 1.2rem;
     padding: 10px;
-    line-height: 20px;
-    color: $gray;
+    color: $gray-lighter;
   }
 
   &__caption--empty {
@@ -411,5 +410,17 @@
 
   &__caption--fake {
     visibility: hidden;
+  }
+
+  &--text {
+
+    .pswp__zoom-wrap {
+      padding: 44px 10px;
+
+      @media (min-width: $screen-md) {
+        padding-left: 44px;
+        padding-right: 44px;
+      }
+    }
   }
 }
