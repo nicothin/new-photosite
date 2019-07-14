@@ -42,12 +42,12 @@ new LazyLoad({
 
 
 // галерея фото
-const PhotoSwipe = require('./photoswipe.js');
+const PhotoSwipe = require('./photoswipe-nicothin.js');
 const PhotoSwipeUI_Default = require('./photoswipe-ui-default.js');
 
 // вернёт галерею и слайд из URL (#&gid=2&pid=1)
 function photoswipeParseHash() {
-  var hash = window.location.hash.substring(1),
+  var hash = window.location.search.substring(1),
   params = {};
   if(hash.length < 5) {
     return params;
@@ -143,6 +143,7 @@ function openPhotoSwipe(index, galleryElement, fromURL) {
     getThumbBoundsFn: false, // пропорции миниатюры не совпадают с пропорциями фото
     timeToIdle: false,
     timeToIdleOutside: false,
+    // history: false,
     // pinchToClose: false,
     // preloaderEl: true,
     // tapToClose: false,

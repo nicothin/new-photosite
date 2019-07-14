@@ -981,6 +981,7 @@ var publicMethods = {
 
   // Close the gallery, then destroy it
   close: function() {
+
     if(!_isOpen) {
       return;
     }
@@ -2683,7 +2684,6 @@ var _showOrHideTimeout,
     };
     startAnimation();
 
-
   };
 
 /*>>show-hide-transition*/
@@ -3477,8 +3477,9 @@ var _historyUpdateTimeout,
   _supportsPushState,
 
   _getHash = function() {
-    return _windowLoc.hash.substring(1);
+    return _windowLoc.search.substring(1);
   },
+
   _cleanHistoryTimeouts = function() {
 
     if(_historyUpdateTimeout) {
@@ -3490,11 +3491,10 @@ var _historyUpdateTimeout,
     }
   },
 
-  // pid - Picture index
-  // gid - Gallery index
   _parseItemIndexFromURL = function() {
+
     var hash = _getHash(),
-      params = {};
+        params = {};
 
     if(hash.length < 5) { // pid=1
       return params;
@@ -3529,17 +3529,17 @@ var _historyUpdateTimeout,
     }
     return params;
   },
+
   _updateHash = function() {
 
     if(_hashAnimCheckTimeout) {
       clearTimeout(_hashAnimCheckTimeout);
     }
 
-
     if(_numAnimations || _isDragging) {
       // changing browser URL forces layout/paint in some browsers, which causes noticable lag during animation
       // that's why we update hash only when no animations running
-      _hashAnimCheckTimeout = setTimeout(_updateHash, 500);
+      _hashAnimCheckTimeout = setTimeout(_updateHash, 100);
       return;
     }
 
@@ -3549,27 +3549,26 @@ var _historyUpdateTimeout,
       _hashChangedByScript = true;
     }
 
-
     var pid = (_currentItemIndex + 1);
     var item = _getItemAt( _currentItemIndex );
     if(item.hasOwnProperty('pid')) {
       // carry forward any custom pid assigned to the item
       pid = item.pid;
     }
-    var newHash = _initialHash + '&'  +  'gid=' + _options.galleryUID + '&' + 'pid=' + pid;
+    var newHash = 'gid=' + _options.galleryUID + '&' + 'pid=' + pid;
 
     if(!_historyChanged) {
-      if(_windowLoc.hash.indexOf(newHash) === -1) {
+      if(_windowLoc.search.indexOf(newHash) === -1) {
         _urlChangedOnce = true;
       }
       // first time - add new hisory record, then just replace
     }
 
-    var newURL = _windowLoc.href.split('#')[0] + '#' +  newHash;
+    var newURL = _windowLoc.href.split('?')[0] + '?' +  newHash;
 
     if( _supportsPushState ) {
 
-      if('?' + newHash !== window.location.hash) {
+      if('?' + newHash !== window.location.search) {
         history[_historyChanged ? 'replaceState' : 'pushState']('', document.title, newURL);
       }
 
@@ -3577,11 +3576,9 @@ var _historyUpdateTimeout,
       if(_historyChanged) {
         _windowLoc.replace( newURL );
       } else {
-        _windowLoc.hash = newHash;
+        _windowLoc.search = newHash;
       }
     }
-
-
 
     _historyChanged = true;
     _hashChangeTimeout = setTimeout(function() {
@@ -3591,13 +3588,10 @@ var _historyUpdateTimeout,
 
 
 
-
-
 _registerModule('History', {
 
-
-
   publicMethods: {
+
     initHistory: function() {
 
       framework.extend(_options, _historyDefaultOptions, true);
@@ -3605,7 +3599,6 @@ _registerModule('History', {
       if( !_options.history ) {
         return;
       }
-
 
       _windowLoc = window.location;
       _urlChangedOnce = false;
@@ -3629,6 +3622,7 @@ _registerModule('History', {
 
       var returnToOriginal = function() {
         _hashReseted = true;
+
         if(!_closedFromURL) {
 
           if(_urlChangedOnce) {
@@ -3636,14 +3630,15 @@ _registerModule('History', {
           } else {
 
             if(_initialHash) {
-              _windowLoc.hash = _initialHash;
+              history.pushState('', document.title, _windowLoc.pathname );
+              // _windowLoc.search = _initialHash; // ребутило страницу, если зайти с параметрами фотки и закрыть
             } else {
               if (_supportsPushState) {
 
                 // remove hash from url without refreshing it or scrolling to top
-                history.pushState('', document.title,  _windowLoc.pathname + _windowLoc.search );
+                history.pushState('', document.title, _windowLoc.pathname + _windowLoc.search );
               } else {
-                _windowLoc.hash = '';
+                _windowLoc.search = '';
               }
             }
           }
@@ -3652,7 +3647,6 @@ _registerModule('History', {
 
         _cleanHistoryTimeouts();
       };
-
 
       _listen('unbindEvents', function() {
         if(_closedByScroll) {
@@ -3670,9 +3664,6 @@ _registerModule('History', {
         _currentItemIndex = _parseItemIndexFromURL().pid;
       });
 
-
-
-
       var index = _initialHash.indexOf('pid=');
       if(index > -1) {
         _initialHash = _initialHash.substring(0, index);
@@ -3681,14 +3672,13 @@ _registerModule('History', {
         }
       }
 
-
       setTimeout(function() {
         if(_isOpen) { // hasn't destroyed yet
           framework.bind(window, 'hashchange', self.onHashChange);
         }
       }, 40);
-
     },
+
     onHashChange: function() {
 
       if(_getHash() === _initialHash) {
@@ -3703,8 +3693,8 @@ _registerModule('History', {
         self.goTo( _parseItemIndexFromURL().pid );
         _hashChangedByHistory = false;
       }
-
     },
+
     updateURL: function() {
 
       // Delay the update of URL, to avoid lag during transition,
@@ -3720,7 +3710,7 @@ _registerModule('History', {
       if(!_historyChanged) {
         _updateHash(); // first time
       } else {
-        _historyUpdateTimeout = setTimeout(_updateHash, 800);
+        _historyUpdateTimeout = setTimeout(_updateHash, 100);
       }
     }
 
