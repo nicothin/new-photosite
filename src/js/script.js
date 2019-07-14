@@ -1,4 +1,4 @@
-/* global Element window document */
+/* global Element window document mainMeta */
 
 // const ready = require('./utils/documentReady.js');
 
@@ -160,6 +160,12 @@ function openPhotoSwipe(index, galleryElement, fromURL) {
   } else { options.index = parseInt(index, 10); }
   if( isNaN(options.index) ) { return; }
   photoSwipe = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+  photoSwipe.listen('afterChange', function() {
+    setMeta(this.currItem.title, 'article', mainMeta.title + ' ' + mainMeta.descr, this.currItem.src);
+  });
+  photoSwipe.listen('destroy', function() {
+    setMeta();
+  });
   photoSwipe.init();
 }
 
@@ -184,14 +190,28 @@ else if(hashData.pid && hashData.gid) {
 function textPhotoSwipe(index) {
 
   var pswpElement = document.querySelectorAll('.pswp')[0];
+  var blockAbout = document.querySelector('#about');
+  var blockPhotohelp = document.querySelector('#photohelp')
   var items = [
     {
-      html: document.querySelector('#about').innerHTML,
+      html: blockAbout.innerHTML,
       pid: 'about',
+      meta: {
+        type: blockAbout.dataset.type,
+        title: blockAbout.dataset.title,
+        descr: blockAbout.dataset.descr,
+        image: blockAbout.dataset.image,
+      },
     },
     {
-      html: document.querySelector('#photohelp').innerHTML,
+      html: blockPhotohelp.innerHTML,
       pid: 'memo',
+      meta: {
+        type: blockPhotohelp.dataset.type,
+        title: blockPhotohelp.dataset.title,
+        descr: blockPhotohelp.dataset.descr,
+        image: blockPhotohelp.dataset.image,
+      },
     },
   ];
   var options = {
@@ -221,6 +241,12 @@ function textPhotoSwipe(index) {
     }
   }
   var modal = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+  modal.listen('afterChange', function() {
+    setMeta(this.currItem.meta.title, this.currItem.meta.type, this.currItem.meta.descr, this.currItem.meta.image);
+  });
+  modal.listen('destroy', function() {
+    setMeta();
+  });
   modal.init();
 }
 
@@ -228,3 +254,12 @@ document.querySelector('.welcome__header').addEventListener('click', function(e)
   e.preventDefault();
   textPhotoSwipe();
 });
+
+function setMeta(title = mainMeta.title, type = mainMeta.type, descr = mainMeta.descr, image = mainMeta.image) {
+  document.title = title;
+  // document.querySelector('title').innerHTML = title;
+  document.querySelector('meta[property="og:type"]').setAttribute('content', type);
+  document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+  document.querySelector('meta[property="og:description"]').setAttribute('content', descr);
+  document.querySelector('meta[property="og:image"]').setAttribute('content', image);
+}

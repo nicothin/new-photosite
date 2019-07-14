@@ -15,11 +15,6 @@ block content
           span.welcome__name-inner Николай Громов
         p.welcome__descr
           span.welcome__descr-inner Фотохудожник
-      //- figure.welcome__photo-wrap(itemprop='associatedMedia', itemscope, itemtype='http://schema.org/ImageObject')
-      //-   a(href='http://ngromov.ru/ph/DSC_5109.jpg', itemprop='contentUrl', data-size='1200x800')
-      //-     //- 380
-      //-     img.welcome__last-photo(src='http://ngromov.ru/ph/DSC_5109.jpg', itemprop='thumbnail', alt='Image 1 description')
-      //-   figcaption.welcome__photo-descr(itemprop='caption description') Image 1 caption Image 2 caption Image 3 caption Image 4 caption Image 5 caption
 
     .photogrid#photogallery(itemscope, itemtype='http://schema.org/ImageGallery')
       figure.photogrid__main.photo(itemprop='associatedMedia', itemscope='', itemtype='http://schema.org/ImageObject')
@@ -218,13 +213,13 @@ block content
           img.photo__img(src='', data-src='http://ngromov.ru/image.php?image=/ph/DSC_5122.jpg&width=380&height=380&cropratio=1:1', itemprop='thumbnail', alt='')
         figcaption.photo__descr(itemprop='caption description')
 
-  aside.about#about
+  aside.about#about(data-type='article', data-title='Кто такой Николай Громов', data-descr='Коротко обо мне.', data-image='http://ngromov.ru/ph/DSC_5109.jpg')
     h2 Кто такой Николай Громов
     .about__text
       p Я веб-разработчик. С 2000 по 2016 год я активно занимался фотографией (даже была своя студия). Сейчас снимаю редко и исключительно по собственному желанию. Этот свой сайт с фото переделал в середине 2019, удалив почти все кадры.
       p #[a(href='https://vk.com/n.gromov') ВКонтакте], #[a(href='tel:+79112603759') +7 911 260-37-59], #[a(href='mailto:nicothin@gmail.com') nicothin@gmail.com].
 
-  section.photohelp#photohelp
+  aside.photohelp#photohelp(data-type='article', data-title='Памятка начинающему фотографу', data-descr='распечатать на листе A4, сложить и носить в фотосумке.', data-image='http://ngromov.ru/ph/DSC_5109.jpg')
     h2 Памятка начинающему фотографу
     p Это PDF — две стороны листа A4, разбитые на 4 блока. Распечатать на одном листе, сложить — получится памятка, легко влезающая в карман или небольшую фотосумку.
     p
