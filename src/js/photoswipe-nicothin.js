@@ -191,9 +191,9 @@ var framework = {
       var androidversion =  match ? match[1] : 0;
       androidversion = parseFloat(androidversion);
       if(androidversion >= 1 ) {
-        if(androidversion < 4.4) {
-          features.isOldAndroid = true; // for fixed position bug & performance
-        }
+        // if(androidversion < 4.4) {
+        //   features.isOldAndroid = true; // for fixed position bug & performance
+        // }
         features.androidVersion = androidversion; // for touchend bug
       }
       features.isMobileOpera = /opera mini|opera mobi/i.test(ua);
@@ -864,7 +864,8 @@ var publicMethods = {
 
     // disable show/hide effects on old browsers that don't support CSS animations or transforms,
     // old IOS, Android and Opera mobile. Blackberry seems to work fine, even older models.
-    var oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
+    // var oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
+    var oldPhone = _features.isOldIOSPhone || _features.isMobileOpera;
     // if(!_features.animationName || !_features.transform || oldPhone) {
     //   _options.showAnimationDuration = _options.hideAnimationDuration = 0;
     // }
@@ -889,7 +890,8 @@ var publicMethods = {
     self.currItem = _getItemAt( _currentItemIndex );
 
 
-    if(_features.isOldIOSPhone || _features.isOldAndroid) {
+    // if(_features.isOldIOSPhone || _features.isOldAndroid) {
+    if(_features.isOldIOSPhone) {
       _isFixedPosition = false;
     }
 
@@ -1955,24 +1957,24 @@ var _gestureStartTime,
   // Pointerup/pointercancel/touchend/touchcancel/mouseup event handler
   _onDragRelease = function(e) {
 
-    if(_features.isOldAndroid ) {
-
-      if(_oldAndroidTouchEndTimeout && e.type === 'mouseup') {
-        return;
-      }
-
-      // on Android (v4.1, 4.2, 4.3 & possibly older)
-      // ghost mousedown/up event isn't preventable via e.preventDefault,
-      // which causes fake mousedown event
-      // so we block mousedown/up for 600ms
-      if( e.type.indexOf('touch') > -1 ) {
-        clearTimeout(_oldAndroidTouchEndTimeout);
-        _oldAndroidTouchEndTimeout = setTimeout(function() {
-          _oldAndroidTouchEndTimeout = 0;
-        }, 600);
-      }
-
-    }
+//     if(_features.isOldAndroid ) {
+//
+//       if(_oldAndroidTouchEndTimeout && e.type === 'mouseup') {
+//         return;
+//       }
+//
+//       // on Android (v4.1, 4.2, 4.3 & possibly older)
+//       // ghost mousedown/up event isn't preventable via e.preventDefault,
+//       // which causes fake mousedown event
+//       // so we block mousedown/up for 600ms
+//       if( e.type.indexOf('touch') > -1 ) {
+//         clearTimeout(_oldAndroidTouchEndTimeout);
+//         _oldAndroidTouchEndTimeout = setTimeout(function() {
+//           _oldAndroidTouchEndTimeout = 0;
+//         }, 600);
+//       }
+//
+//     }
 
     _shout('pointerUp');
 
