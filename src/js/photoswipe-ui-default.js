@@ -31,9 +31,9 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
     _captionContainer,
     _fakeCaptionContainer,
     _indexIndicator,
-    _shareButton,
-    _shareModal,
-    _shareModalHidden = true,
+    // _shareButton,
+    // _shareModal,
+    // _shareModalHidden = true,
     _initalCloseOnScrollValue,
     _isIdle,
     _listen,
@@ -65,7 +65,7 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
       captionEl: true,
       fullscreenEl: true,
       zoomEl: true,
-      shareEl: true,
+      // shareEl: true,
       counterEl: true,
       arrowEl: true,
       preloaderEl: true,
@@ -75,22 +75,22 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
 
       clickToCloseNonZoomable: true,
 
-      shareButtons: [
-        {id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
-        {id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
-        {id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/'+
-                          '?url={{url}}&media={{image_url}}&description={{text}}'},
-        {id:'download', label:'Download image', url:'{{raw_image_url}}', download:true}
-      ],
-      getImageURLForShare: function( /* shareButtonData */ ) {
-        return pswp.currItem.src || '';
-      },
-      getPageURLForShare: function( /* shareButtonData */ ) {
-        return window.location.href;
-      },
-      getTextForShare: function( /* shareButtonData */ ) {
-        return pswp.currItem.title || '';
-      },
+      // shareButtons: [
+      //   {id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
+      //   {id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
+      //   {id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/'+
+      //                     '?url={{url}}&media={{image_url}}&description={{text}}'},
+      //   {id:'download', label:'Download image', url:'{{raw_image_url}}', download:true}
+      // ],
+      // getImageURLForShare: function( /* shareButtonData */ ) {
+      //   return pswp.currItem.src || '';
+      // },
+      // getPageURLForShare: function( /* shareButtonData */ ) {
+      //   return window.location.href;
+      // },
+      // getTextForShare: function( /* shareButtonData */ ) {
+      //   return pswp.currItem.title || '';
+      // },
 
       indexIndicatorSep: ' / ',
       fitControlsWidth: 1200
@@ -165,93 +165,93 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
         _galleryHasOneSlide = hasOneSlide;
       }
     },
-    _toggleShareModalClass = function() {
-      _togglePswpClass(_shareModal, 'share-modal--hidden', _shareModalHidden);
-    },
-    _toggleShareModal = function() {
+//     _toggleShareModalClass = function() {
+//       _togglePswpClass(_shareModal, 'share-modal--hidden', _shareModalHidden);
+//     },
+//     _toggleShareModal = function() {
+//
+//       _shareModalHidden = !_shareModalHidden;
+//
+//
+//       if(!_shareModalHidden) {
+//         _toggleShareModalClass();
+//         setTimeout(function() {
+//           if(!_shareModalHidden) {
+//             framework.addClass(_shareModal, 'pswp__share-modal--fade-in');
+//           }
+//         }, 30);
+//       } else {
+//         framework.removeClass(_shareModal, 'pswp__share-modal--fade-in');
+//         setTimeout(function() {
+//           if(_shareModalHidden) {
+//             _toggleShareModalClass();
+//           }
+//         }, 300);
+//       }
+//
+//       if(!_shareModalHidden) {
+//         _updateShareURLs();
+//       }
+//       return false;
+//     },
 
-      _shareModalHidden = !_shareModalHidden;
-
-
-      if(!_shareModalHidden) {
-        _toggleShareModalClass();
-        setTimeout(function() {
-          if(!_shareModalHidden) {
-            framework.addClass(_shareModal, 'pswp__share-modal--fade-in');
-          }
-        }, 30);
-      } else {
-        framework.removeClass(_shareModal, 'pswp__share-modal--fade-in');
-        setTimeout(function() {
-          if(_shareModalHidden) {
-            _toggleShareModalClass();
-          }
-        }, 300);
-      }
-
-      if(!_shareModalHidden) {
-        _updateShareURLs();
-      }
-      return false;
-    },
-
-    _openWindowPopup = function(e) {
-      e = e || window.event;
-      var target = e.target || e.srcElement;
-
-      pswp.shout('shareLinkClick', e, target);
-
-      if(!target.href) {
-        return false;
-      }
-
-      if( target.hasAttribute('download') ) {
-        return true;
-      }
-
-      window.open(target.href, 'pswp_share', 'scrollbars=yes,resizable=yes,toolbar=no,'+
-                    'location=yes,width=550,height=420,top=100,left=' +
-                    (window.screen ? Math.round(screen.width / 2 - 275) : 100)  );
-
-      if(!_shareModalHidden) {
-        _toggleShareModal();
-      }
-
-      return false;
-    },
-    _updateShareURLs = function() {
-      var shareButtonOut = '',
-        shareButtonData,
-        shareURL,
-        image_url,
-        page_url,
-        share_text;
-
-      for(var i = 0; i < _options.shareButtons.length; i++) {
-        shareButtonData = _options.shareButtons[i];
-
-        image_url = _options.getImageURLForShare(shareButtonData);
-        page_url = _options.getPageURLForShare(shareButtonData);
-        share_text = _options.getTextForShare(shareButtonData);
-
-        shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url) )
-                  .replace('{{image_url}}', encodeURIComponent(image_url) )
-                  .replace('{{raw_image_url}}', image_url )
-                  .replace('{{text}}', encodeURIComponent(share_text) );
-
-        shareButtonOut += '<a href="' + shareURL + '" target="_blank" '+
-                  'class="pswp__share--' + shareButtonData.id + '"' +
-                  (shareButtonData.download ? 'download' : '') + '>' +
-                  shareButtonData.label + '</a>';
-
-        if(_options.parseShareButtonOut) {
-          shareButtonOut = _options.parseShareButtonOut(shareButtonData, shareButtonOut);
-        }
-      }
-      _shareModal.children[0].innerHTML = shareButtonOut;
-      _shareModal.children[0].onclick = _openWindowPopup;
-
-    },
+//     _openWindowPopup = function(e) {
+//       e = e || window.event;
+//       var target = e.target || e.srcElement;
+//
+//       // pswp.shout('shareLinkClick', e, target);
+//
+//       if(!target.href) {
+//         return false;
+//       }
+//
+//       if( target.hasAttribute('download') ) {
+//         return true;
+//       }
+//
+//       window.open(target.href, 'pswp_share', 'scrollbars=yes,resizable=yes,toolbar=no,'+
+//                     'location=yes,width=550,height=420,top=100,left=' +
+//                     (window.screen ? Math.round(screen.width / 2 - 275) : 100)  );
+//
+//       // if(!_shareModalHidden) {
+//       //   _toggleShareModal();
+//       // }
+//
+//       return false;
+//     },
+//     _updateShareURLs = function() {
+//       var shareButtonOut = '',
+//         shareButtonData,
+//         shareURL,
+//         image_url,
+//         page_url,
+//         share_text;
+//
+//       for(var i = 0; i < _options.shareButtons.length; i++) {
+//         shareButtonData = _options.shareButtons[i];
+//
+//         image_url = _options.getImageURLForShare(shareButtonData);
+//         page_url = _options.getPageURLForShare(shareButtonData);
+//         share_text = _options.getTextForShare(shareButtonData);
+//
+//         shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url) )
+//                   .replace('{{image_url}}', encodeURIComponent(image_url) )
+//                   .replace('{{raw_image_url}}', image_url )
+//                   .replace('{{text}}', encodeURIComponent(share_text) );
+//
+//         shareButtonOut += '<a href="' + shareURL + '" target="_blank" '+
+//                   'class="pswp__share--' + shareButtonData.id + '"' +
+//                   (shareButtonData.download ? 'download' : '') + '>' +
+//                   shareButtonData.label + '</a>';
+//
+//         if(_options.parseShareButtonOut) {
+//           shareButtonOut = _options.parseShareButtonOut(shareButtonData, shareButtonOut);
+//         }
+//       }
+//       // _shareModal.children[0].innerHTML = shareButtonOut;
+//       // _shareModal.children[0].onclick = _openWindowPopup;
+//
+//     },
     _hasCloseClass = function(target) {
       for(var  i = 0; i < _options.closeElClasses.length; i++) {
         if( framework.hasClass(target, 'pswp__' + _options.closeElClasses[i]) ) {
@@ -424,26 +424,26 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
         _captionContainer = el;
       }
     },
-    {
-      name: 'share-modal',
-      option: 'shareEl',
-      onInit: function(el) {
-        _shareModal = el;
-      },
-      onTap: function() {
-        _toggleShareModal();
-      }
-    },
-    {
-      name: 'button--share',
-      option: 'shareEl',
-      onInit: function(el) {
-        _shareButton = el;
-      },
-      onTap: function() {
-        _toggleShareModal();
-      }
-    },
+    // {
+    //   name: 'share-modal',
+    //   option: 'shareEl',
+    //   onInit: function(el) {
+    //     _shareModal = el;
+    //   },
+    //   onTap: function() {
+    //     _toggleShareModal();
+    //   }
+    // },
+    // {
+    //   name: 'button--share',
+    //   option: 'shareEl',
+    //   onInit: function(el) {
+    //     _shareButton = el;
+    //   },
+    //   onTap: function() {
+    //     _toggleShareModal();
+    //   }
+    // },
     {
       name: 'button--zoom',
       option: 'zoomEl',
@@ -593,9 +593,9 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
 
     // unbind events for UI
     _listen('unbindEvents', function() {
-      if(!_shareModalHidden) {
-        _toggleShareModal();
-      }
+      // if(!_shareModalHidden) {
+      //   _toggleShareModal();
+      // }
 
       if(_idleInterval) {
         clearInterval(_idleInterval);
@@ -626,9 +626,9 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
         framework.removeClass(_captionContainer, 'pswp__caption--empty');
       }
 
-      if(_shareModal) {
-        _shareModal.children[0].onclick = null;
-      }
+      // if(_shareModal) {
+      //   _shareModal.children[0].onclick = null;
+      // }
       framework.removeClass(_controls, 'pswp__ui--over-close');
       framework.addClass( _controls, 'pswp__ui--hidden');
       ui.setIdle(false);
@@ -651,9 +651,9 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
 
     _setupUIElements();
 
-    if(_options.shareEl && _shareButton && _shareModal) {
-      _shareModalHidden = true;
-    }
+    // if(_options.shareEl && _shareButton && _shareModal) {
+    //   _shareModalHidden = true;
+    // }
 
     _countNumItems();
 
@@ -687,9 +687,9 @@ var PhotoSwipeUI_Default = function(pswp, framework) {
       _overlayUIUpdated = false;
     }
 
-    if(!_shareModalHidden) {
-      _toggleShareModal();
-    }
+    // if(!_shareModalHidden) {
+    //   _toggleShareModal();
+    // }
 
     _countNumItems();
   };
