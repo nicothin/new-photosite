@@ -16,8 +16,7 @@ while($file = readdir($dir)){
       $iptc = iptcparse($info['APP13']);
       $list[$ctime]['name'] = $iptc["2#005"][0];
       $list[$ctime]['descr'] = $iptc["2#120"][0];
-      // дату не показываем нигде
-      // $list[$ctime]['date'] = preg_replace('/^(\d{4})(\d{2})(\d{2})/', '$3.$2.$1', $iptc["2#055"][0]);
+      $list[$ctime]['date'] = preg_replace('/^(\d{4})(\d{2})(\d{2})/', '$3.$2.$1', $iptc["2#055"][0]);
     }
     else {
       $list[$ctime]['name'] = "";
@@ -79,7 +78,7 @@ if (isset($_GET) and isset($_GET['gid']) and isset($_GET['pid']) ) {
         $meta['type'] = 'article';
         $meta['title'] = $photo['name'] ? $photo['name'] : 'Фото без названия';
         $meta['descr'] = $photo['descr'] ? $photo['descr'] : '';
-        $meta['image'] = $photo['file'];
+        $meta['image'] = '//ngromov.ru/'.$photo['file'];
         break;
       }
     }
