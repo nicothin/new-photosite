@@ -148,7 +148,7 @@ var framework = {
       features = {};
 
     // IE8 and below
-    features.oldIE = document.all && !document.addEventListener;
+    // features.oldIE = document.all && !document.addEventListener;
 
     features.touch = 'ontouchstart' in window;
 
@@ -257,41 +257,41 @@ var framework = {
 framework.detectFeatures();
 
 // Override addEventListener for old versions of IE
-if(framework.features.oldIE) {
-
-  framework.bind = function(target, type, listener, unbind) {
-
-    type = type.split(' ');
-
-    var methodName = (unbind ? 'detach' : 'attach') + 'Event',
-      evName,
-      _handleEv = function() {
-        listener.handleEvent.call(listener);
-      };
-
-    for(var i = 0; i < type.length; i++) {
-      evName = type[i];
-      if(evName) {
-
-        if(typeof listener === 'object' && listener.handleEvent) {
-          if(!unbind) {
-            listener['oldIE' + evName] = _handleEv;
-          } else {
-            if(!listener['oldIE' + evName]) {
-              return false;
-            }
-          }
-
-          target[methodName]( 'on' + evName, listener['oldIE' + evName]);
-        } else {
-          target[methodName]( 'on' + evName, listener);
-        }
-
-      }
-    }
-  };
-
-}
+// if(framework.features.oldIE) {
+//
+//   framework.bind = function(target, type, listener, unbind) {
+//
+//     type = type.split(' ');
+//
+//     var methodName = (unbind ? 'detach' : 'attach') + 'Event',
+//       evName,
+//       _handleEv = function() {
+//         listener.handleEvent.call(listener);
+//       };
+//
+//     for(var i = 0; i < type.length; i++) {
+//       evName = type[i];
+//       if(evName) {
+//
+//         if(typeof listener === 'object' && listener.handleEvent) {
+//           if(!unbind) {
+//             listener['oldIE' + evName] = _handleEv;
+//           } else {
+//             if(!listener['oldIE' + evName]) {
+//               return false;
+//             }
+//           }
+//
+//           target[methodName]( 'on' + evName, listener['oldIE' + evName]);
+//         } else {
+//           target[methodName]( 'on' + evName, listener);
+//         }
+//
+//       }
+//     }
+//   };
+//
+// }
 
 /*>>framework-bridge*/
 
@@ -392,7 +392,7 @@ var _isOpen,
   _cancelAF,
   _initalClassName,
   _initalWindowScrollY,
-  _oldIE,
+  // _oldIE,
   _currentWindowScrollY,
   _features,
   _windowVisibleSize = {},
@@ -823,7 +823,7 @@ var publicMethods = {
     _requestAF = _features.raf;
     _cancelAF = _features.caf;
     _transformKey = _features.transform;
-    _oldIE = _features.oldIE;
+    // _oldIE = _features.oldIE;
 
     self.scrollWrap = framework.getChildByClass(template, 'pswp__scroll-wrap');
     self.container = framework.getChildByClass(self.scrollWrap, 'pswp__container');
@@ -930,9 +930,9 @@ var publicMethods = {
       _setTranslateX( (i+_containerShiftIndex) * _slideSize.x, _itemHolders[i].el.style);
     }
 
-    if(!_oldIE) {
+    // if(!_oldIE) {
       framework.bind(self.scrollWrap, _downEvents, self); // no dragging for old IE
-    }
+    // }
 
     _listen('initialZoomInEnd', function() {
       self.setContent(_itemHolders[0], _currentItemIndex-1);
@@ -3288,10 +3288,10 @@ _registerModule('DesktopZoom', {
 
     initDesktopZoom: function() {
 
-      if(_oldIE) {
-        // no zoom for old IE (<=8)
-        return;
-      }
+      // if(_oldIE) {
+      //   // no zoom for old IE (<=8)
+      //   return;
+      // }
 
       if(_likelyTouchDevice) {
         // if detected hardware touch support, we wait until mouse is used,
