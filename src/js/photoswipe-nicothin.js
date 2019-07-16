@@ -319,8 +319,8 @@ var _options = {
   closeOnScroll: true,
   closeOnVerticalDrag: true,
   verticalDragRange: 0.75,
-  hideAnimationDuration: 333,
-  showAnimationDuration: 333,
+  // hideAnimationDuration: 333,
+  // showAnimationDuration: 333,
   showHideOpacity: false,
   focus: true,
   escKey: true,
@@ -865,9 +865,9 @@ var publicMethods = {
     // disable show/hide effects on old browsers that don't support CSS animations or transforms,
     // old IOS, Android and Opera mobile. Blackberry seems to work fine, even older models.
     var oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
-    if(!_features.animationName || !_features.transform || oldPhone) {
-      _options.showAnimationDuration = _options.hideAnimationDuration = 0;
-    }
+    // if(!_features.animationName || !_features.transform || oldPhone) {
+    //   _options.showAnimationDuration = _options.hideAnimationDuration = 0;
+    // }
 
     // init modules
     for(i = 0; i < _modules.length; i++) {
@@ -2537,7 +2537,8 @@ var _showOrHideTimeout,
       thumbBounds = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
     }
 
-    var duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration;
+    // var duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration;
+    var duration = 333;
 
     var onComplete = function() {
       _stopAnimation('initialZoom');
