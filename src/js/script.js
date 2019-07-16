@@ -161,7 +161,7 @@ function openPhotoSwipe(index, galleryElement, fromURL) {
   if( isNaN(options.index) ) { return; }
   photoSwipe = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
   photoSwipe.listen('afterChange', function() {
-    setMeta(this.currItem.title, 'article', mainMeta.title + ' ' + mainMeta.descr, this.currItem.src);
+    setMeta(this.currItem.title.split('<br>')[0] ? this.currItem.title.split('<br>')[0] : 'Фото без названия', 'article', this.currItem.title.split('<br>')[1], this.currItem.src);
   });
   photoSwipe.listen('destroy', function() {
     setMeta();
