@@ -245,8 +245,8 @@ var framework = {
     }
 
     // Detect SVG support
-    features.svg = !!document.createElementNS &&
-            !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
+    // features.svg = !!document.createElementNS &&
+    //         !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
 
     framework.features = features;
 
@@ -920,7 +920,8 @@ var publicMethods = {
     }
     rootClasses += _likelyTouchDevice ? 'pswp--touch' : 'pswp--notouch';
     rootClasses += _features.animationName ? ' pswp--css_animation' : '';
-    rootClasses += _features.svg ? ' pswp--svg' : '';
+    // rootClasses += _features.svg ? ' pswp--svg' : '';
+    rootClasses += ' pswp--svg';
     framework.addClass(template, rootClasses);
 
     self.updateSize();
